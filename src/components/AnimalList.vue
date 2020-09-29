@@ -1,5 +1,18 @@
 <template>
 <div>
+   <div> 
+    <form @submit.prevent="AddAnimal">
+      <label>Vrsta</label><br>
+      <input v-model="vrsta" type="text"><br>
+      <label>Ime</label><br>
+      <input v-model="ime" type="text"><br><br>
+      <label>dateofbirth</label><br>
+      <input v-model="dateofBirth" type="date"><br><br>
+      <input type="submit" value="AddAnimal">
+    </form> 
+  </div>
+
+
 <table>
   <tr>
     <th>Vrsta</th>
@@ -15,7 +28,12 @@
     <td><button v-on:click="updateAnimal(index, animal)">UpdateAnimal</button></td>
   </tr>
 </table>
+
 </div>
+
+  
+ 
+
 </template>
 
 <script>
@@ -31,6 +49,11 @@ export default {
         { vrsta: "Medved", ime: "Radovan" },
         { vrsta: "Golub", ime: "Zika", dateofBirth: new Date(1999, 1, 10) },
       ],
+
+      vrsta: '',
+      ime: '',
+      dateofBirth: null
+
     };
 },
     methods: {
@@ -40,12 +63,24 @@ export default {
       },
 
       updateAnimal(index, animal) {
-    this.removeAnimal(index);
-    this.listOfAnimals.unshift(animal);
-    }
+        this.removeAnimal(index);
+        this.listOfAnimals.unshift(animal);
     },
 
-    
+    AddAnimal() {
+      var newAnimal = {
+        vrsta: this.vrsta,
+        ime: this.vime,
+        dateofBirth: this.dateofBirth
+   }
+
+   this.listOfAnimals.push(newAnimal)
+    this.vrsta = '';
+    this.ime = '';
+    this.dateofBirth = null;
+
+}
+}    
 };
 
 </script>
