@@ -8,7 +8,10 @@
       <input v-model="ime" type="text"><br><br>
       <label>dateofbirth</label><br>
       <input v-model="dateofBirth" type="date"><br><br>
-      <input type="submit" value="AddAnimal">
+      <select v-model="sector">
+          <option v-for="(sector, index) in sectors" :key="index">{{sector}}</option>
+        </select>
+      <input type="submit" value="Add Animal">
     </form> 
   </div>
 
@@ -18,12 +21,14 @@
     <th>Vrsta</th>
     <th>Ime</th>
     <th>dateofBirth</th>
+    <th>Sector</th>
   </tr>
   <tr v-for="(animal, index) in listOfAnimals" :key="index">
     <td>{{ animal.vrsta }}</td>
     <td>{{ animal.ime }}</td>
     <td v-if="animal.dateofBirth">{{ animal.dateofBirth.toLocaleString() }}</td>
     <td v-else> Unkown </td>
+    <td>{{ animal.sector }}</td>
     <td><button v-on:click="removeAnimal(index)">DeleteAnimal</button></td>
     <td><button v-on:click="updateAnimal(index, animal)">UpdateAnimal</button></td>
   </tr>
@@ -52,7 +57,9 @@ export default {
 
       vrsta: '',
       ime: '',
-      dateofBirth: null
+      dateofBirth: null,
+      sectors: ['birds', 'reptiles', 'mammals', 'dragons'],
+      sector: ''
 
     };
 },
@@ -70,14 +77,16 @@ export default {
     AddAnimal() {
       var newAnimal = {
         vrsta: this.vrsta,
-        ime: this.vime,
-        dateofBirth: this.dateofBirth
+        ime: this.ime,
+        dateofBirth: this.dateofBirth,
+        sector: this.sector
    }
 
    this.listOfAnimals.push(newAnimal)
     this.vrsta = '';
     this.ime = '';
-    this.dateofBirth = null;
+    this.dateofBirth = null,
+    this.sector = ''
 
 }
 }    
